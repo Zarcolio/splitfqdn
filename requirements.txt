@@ -1,2 +1,1 @@
 tldextract==2.2.2
-pyasn==1.6.0b1
