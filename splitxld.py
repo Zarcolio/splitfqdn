@@ -13,7 +13,7 @@ def signal_handler(sig, frame):
 signal.signal(signal.SIGINT, signal_handler)
 
 parser = argparse.ArgumentParser()
-parser.add_argument("format", help="Each number from 1 to 9 is replaced with the corresponding domain level taken from the input (takes vTLD such as co.uk into account). For example, if the argument 3.2.1 is given and stdin supplies sub5.sub4.sub3.example.co.uk then sub3.example.co.uk is returned. The dots are free-form, any character can be used.")
+parser.add_argument("format", help="Each % plus number from 1 to 9 is replaced with the corresponding domain level taken from the input (takes vTLD such as co.uk into account). For example, if the argument %3.%2.%1 is given and stdin supplies sub5.sub4.sub3.example.co.uk then sub3.example.co.uk is returned. The dots are free-form, any character can be used.")
 parser.add_argument("-321", "--extract321", help="Separeate second (2) and top level domain (1), and the remaining part (3).", action="store_true")
 args = parser.parse_args()
 
