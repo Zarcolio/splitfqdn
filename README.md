@@ -23,3 +23,7 @@ optional arguments:
 ```
 echo www.google.com | splitxld "%3 is the subdomain of %2.%1"
 ```
+This results in:
+```
+www is the subdomain of google.com
+```
