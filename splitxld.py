@@ -32,12 +32,12 @@ for sInFqdn in sys.stdin:
     # Because of vTLD suffixes:
     dl3, dl2, dl1 = extract(sInFqdn)
     if args.extract321:
-            sOutput = sOutput.replace("1",dl1)
-            sOutput = sOutput.replace("2",dl2)
-            sOutput = sOutput.replace("3",dl3)
+            sOutput = sOutput.replace("%1",dl1)
+            sOutput = sOutput.replace("%2",dl2)
+            sOutput = sOutput.replace("%3",dl3)
     else:
             sInFqdn = sInFqdn.rsplit(dl1, 1)[0]
-            sOutput = sOutput.replace("1",dl1)
+            sOutput = sOutput.replace("%1",dl1)
             aFqdnSplit = sInFqdn.strip().split(".")
             
             i = len(aFqdnSplit)
@@ -45,6 +45,6 @@ for sInFqdn in sys.stdin:
                 i -= 1
                 if i > 9:
                     continue
-                sOutput = sOutput.replace(str(i+1),sDomainLevel)
+                sOutput = sOutput.replace("%"+str(i+1),sDomainLevel)
     
     sys.stdout.write(sOutput + "\n")
