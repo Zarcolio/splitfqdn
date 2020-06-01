@@ -16,8 +16,8 @@ positional arguments:
 
 optional arguments:
   -h, --help          show this help message and exit
-  -321, --extract321  Separeate second (2) and top level domain (1), and the
-                      remaining part (3).
+  -321, --extract321  Separeate second (%2) and top level domain (%1), and the
+                      remaining part (%3).
 ```
 # Example
 ```
