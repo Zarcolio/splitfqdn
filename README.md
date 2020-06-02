@@ -20,9 +20,17 @@ optional arguments:
 ```
 # Example
 ```
-echo www.google.com | splitxld "%3 is the subdomain of %2.%1"
+echo www1.www2.google.com | splitxld "%3 is the third level domain of %2.%1"
 ```
 This results in:
 ```
-www is the subdomain of google.com
+www is the third level domain of google.com
+```
+
+```
+echo www1.www2.google.com | splitxld "%3 is thefull subdomain of %2.%1" -321
+```
+This results in:
+```
+www1.www2 is the full subdomain of google.com
 ```
