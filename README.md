@@ -19,6 +19,7 @@ optional arguments:
                       remaining part (%3).
 ```
 # Example
+
 ```
 echo www1.www2.google.com | splitxld "%3 is the third level domain of %2.%1"
 ```
@@ -26,9 +27,9 @@ This results in:
 ```
 www is the third level domain of google.com
 ```
-
+But using the -321 option, everything under the second level domain is return by %3:
 ```
-echo www1.www2.google.com | splitxld "%3 is thefull subdomain of %2.%1" -321
+echo www1.www2.google.com | splitxld "%3 is the full subdomain of %2.%1" -321
 ```
 This results in:
 ```
