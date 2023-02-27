@@ -1,9 +1,9 @@
-# Splitxld
+# Splitfqdn
 Split an FQDN in parts and rearrange its parts
 
 # Usage
 ```
-usage: splitxld [-h] [-321] format
+usage: splitfqdn [-h] [-321] format
 
 positional arguments:
   format              %1 to %9 is replaced with the corresponding domain level
@@ -21,7 +21,7 @@ optional arguments:
 # Example
 
 ```
-echo www1.www2.google.co.uk | splitxld "%3 is the third level domain of %2.%1"
+echo www1.www2.google.co.uk | splitfqdn "%3 is the third level domain of %2.%1"
 ```
 This results in:
 ```
@@ -29,7 +29,7 @@ www is the third level domain of google.co.uk
 ```
 But using the -321 option, everything under the second level domain is return by %3:
 ```
-echo www1.www2.google.co.uk | splitxld "%3 is the full subdomain of %2.%1" -321
+echo www1.www2.google.co.uk | splitfqdn "%3 is the full subdomain of %2.%1" -321
 ```
 This results in:
 ```
