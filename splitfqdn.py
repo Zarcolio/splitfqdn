@@ -2,14 +2,43 @@
 # -*- coding: utf-8 -*-
 
 import sys
-from tldextract import extract
 import signal
 import argparse
 import re
 
+from tldextract import extract
+
 def signal_handler(sig, frame):
     sys.stderr.write("\nCtrl-C detected, quitting...\n")
     sys.exit(0)
+
+def main(args):
+    try:
+        for sInFqdn in sys.stdin:
+            sInFqdn = sInFqdn.strip()
+            if not sInFqdn:
+                continue
+
+            # Extract domain levels using tldextract
+            dl3, dl2, dl1 = extract(sInFqdn)
+
+            # Replace format string with domain levels
+            sOutput = args.format.replace("%1", dl1).replace("%2", dl2).replace("%3", dl3)
+
+            # Replace remaining domain levels using split
+            if not args.extract321:
+                aFqdnSplit = sInFqdn.rsplit(dl1, 1)[0].split(".")
+                for i, sDomainLevel in enumerate(aFqdnSplit[::-1], start=1):
+                    if i > 9:
+                        break
+                    sOutput = sOutput.replace(f"%{i}", sDomainLevel)
+
+            # Print output
+            if not args.fullmatch or not re.match(r".*%[0-9]", sOutput):
+                print(sOutput)
+
+    except UnicodeError:
+        pass
 
 signal.signal(signal.SIGINT, signal_handler)
 
@@ -19,35 +48,5 @@ parser.add_argument("-321", "--extract321", help="Separeate second (%%2) and top
 parser.add_argument("-full", "--fullmatch", help="Only show those lines that have all %%1-%%9 have replaced.", action="store_true")
 args = parser.parse_args()
 
-try:
-    for sInFqdn in sys.stdin:
-        if not sInFqdn.strip():
-            continue
-        
-        sOutput = args.format
-        # Because of vTLD suffixes:
-        dl3, dl2, dl1 = extract(sInFqdn)
-        if args.extract321:
-                sOutput = sOutput.replace("%1",dl1)
-                sOutput = sOutput.replace("%2",dl2)
-                sOutput = sOutput.replace("%3",dl3)
-        else:
-                sInFqdn = sInFqdn.rsplit(dl1, 1)[0]
-                sOutput = sOutput.replace("%1",dl1)
-                aFqdnSplit = sInFqdn.strip().split(".")
-                
-                i = len(aFqdnSplit)
-                for sDomainLevel in aFqdnSplit:
-                    i -= 1
-                    if i > 9:
-                        continue
-                    sOutput = sOutput.replace("%"+str(i+1),sDomainLevel)
-
-
-        if args.fullmatch:
-            if not re.match(r".*%[0-9]", sOutput):
-                print(sOutput)
-        else:
-            print(sOutput)
-except UnicodeError:
-    pass
+if __name__ == '__main__':
+    main(args)
