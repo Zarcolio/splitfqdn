@@ -1,5 +1,5 @@
 # Splitfqdn
-Split an FQDN in parts and rearrange its parts
+Splits an FQDN in parts and rearrange its parts
 
 # Usage
 ```
