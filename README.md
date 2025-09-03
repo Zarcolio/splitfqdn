@@ -27,7 +27,7 @@ This results in:
 ```
 www2 is the third level domain of google.co.uk
 ```
-But using the -321 option, everything under the second level domain is return by %3:
+But using the -321 option, everything under the second level domain is returned by %3:
 ```
 echo www1.www2.google.co.uk | splitfqdn "%3 is the full subdomain of %2.%1" -321
 ```
